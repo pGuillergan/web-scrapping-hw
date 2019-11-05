@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Costa Rica Weather</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="jumbotron text-center">
+      <h1>Mars info</h1>
+      
+      <!-- <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get Data!</a></p> -->
+    </div>
+    <div class="col-md-6">
+      <img src="{{ feat_img }}" alt="Sloth" style="max-width: 100%">
+      <br><br><br>
+      {% for h in hemi %}
+      <div class="col-md-6">
+        <img src="{{ h.img_url }}" style="max-width: 100%">
+        <h4>{{h.title}}</h4>
+      </div>
+      {% endfor %}
+      
+    </div>
+    <div class="col-md-6">
+      <h2>Weather</h2>
+      <p>{{weather}}</p>
+      <h2>Latest news</h2>
+      <!-- {% for name in list %}
+        <li>{{ news.date }}</li>
+        <li>{{ news.title }}</li>
+        <li>{{ news.teaser }}</li>
+      {% endfor %} -->
+    </div>
+  </div>
+</body>
+
+</html>
