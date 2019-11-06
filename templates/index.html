@@ -5,8 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Costa Rica Weather</title>
+  <title>UCBxHW Mars</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+  table, th, td {border: 1px solid black;}
+  th, td {padding: 15px;}
+  </style>
 </head>
 
 <body>
@@ -17,8 +21,38 @@
       <!-- <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get Data!</a></p> -->
     </div>
     <div class="col-md-6">
+
+        <h2>Mars Statistics</h2>
+        <table style="width:100%">
+            {% for p in profile %}
+            <tr>
+              <td>{{p.label}}</td>
+              <td>{{p.value}}</td>
+            </tr>
+            {% endfor %}    
+          </table>
+      
+      <br><br>
       <img src="{{ feat_img }}" alt="Sloth" style="max-width: 100%">
-      <br><br><br>
+      <br><br>
+
+      <h2>Mars-Earth Comparison</h2>
+      <table style="width:100%">
+          <tr>
+            <th>  </th>
+            <th>Mars</th> 
+            <th>Earth</th>
+          </tr>
+          {% for c in comp %}
+          <tr>
+            <td>{{c.label}}</td>
+            <td>{{c.mars}}</td>
+            <td>{{c.earth}}</td>
+          </tr>
+          {% endfor %}    
+        </table>
+      
+      <br><br>
       {% for h in hemi %}
       <div class="col-md-6">
         <img src="{{ h.img_url }}" style="max-width: 100%">
@@ -31,11 +65,11 @@
       <h2>Weather</h2>
       <p>{{weather}}</p>
       <h2>Latest news</h2>
-      <!-- {% for name in list %}
-        <li>{{ news.date }}</li>
-        <li>{{ news.title }}</li>
-        <li>{{ news.teaser }}</li>
-      {% endfor %} -->
+      {% for news in news_data %}
+          <h4>{{ news.title }}</h4>
+          <p><i>{{ news.date }}</i> <br>
+          {{ news.teaser }}</p><br>
+      {% endfor %}
     </div>
   </div>
 </body>

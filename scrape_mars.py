@@ -5,28 +5,29 @@ import pymongo
 
 def init_browser():
 	#----------for mac
-	#executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
-	#browser = Browser('chrome', **executable_path, headless=False)
-	#----------for windows
-	executable_path = {'executable_path': 'chromedriver.exe'}
+	executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
 	return Browser('chrome', **executable_path, headless=False)
+	#----------for windows
+	#executable_path = {'executable_path': 'chromedriver.exe'}
+	#return Browser('chrome', **executable_path, headless=False)
 #--------------------------------------------------------------------------------
 # returns a list of dictionaries with 3 entries
-def scrape_news():
-	url = "https://mars.nasa.gov/news/"
-	browser =  init_browser()
-	browser.visit(url)
-	html = browser.html
-	soup = bs(html, 'html.parser')
-	results = soup.find_all('li', class_='slide')
-	news_list = []
-	for res in results:
-		title = res.find('div', class_='content_title').text
-		date = res.find('div', class_='list_date').text
-		teaser = res.find('div', class_='article_teaser_body').text
-		news_list.append({"date":date, "title":title, "teaser":teaser})   
-	browser.quit()
-	return news_list
+#def scrape_news():
+	# url = "https://mars.nasa.gov/news/"
+	# browser =  init_browser()
+	# browser.visit(url)
+	# html = browser.html
+	# soup = bs(html, 'html.parser')
+	# results = soup.find_all('li', class_='slide')
+	# news_list = []
+	# for res in results:
+	# 	title = res.find('div', class_='content_title').text
+	# 	date = res.find('div', class_='list_date').text
+	# 	teaser = res.find('div', class_='article_teaser_body').text
+	# 	news_list.append({"date":date, "title":title, "teaser":teaser})   
+	# browser.quit()
+
+#	return news_list
 #--------------------------------------------------------------------------------
 # returns a string of a link to an image online
 def scrape_featured():
@@ -63,7 +64,18 @@ def scrape_facts():
 	import pandas as pd
 	url = "https://space-facts.com/mars/"
 	html = pd.read_html(url)
-	return html
+	mars_earth_comp = html[1]
+	mars_profile = html[0]
+
+	mars_profile_list = []
+	mars_earth_comp_list = []
+
+	for row in mars_earth_comp.iterrows():
+		mars_earth_comp_list.append({"label":row[1][0], "mars":row[1][1], "earth":row[1][2]})
+	for row in mars_profile.iterrows():
+		mars_profile_list.append({"label":row[1][0], "value":row[1][1]})
+ 
+	return mars_profile_list, mars_earth_comp_list
 #--------------------------------------------------------------------------------
 #return list of dicts with 2 entries
 def scrape_hemispheres():
